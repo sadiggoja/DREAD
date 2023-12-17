@@ -38,6 +38,13 @@ services:
       INFLUXDB_DB: "power_consumption"
       INFLUXDB_USER: "rapidata"
       INFLUXDB_USER_PASSWORD: "rapidata"
-
       
-    
+  telegraf:
+    image: telegraf:latest
+    volumes:
+      - ./telegraf/telegraf.conf:/etc/telegraf/telegraf.conf:ro
+    depends_on:
+      - kafka
+      - influxdb
+    networks:
+      - elk
